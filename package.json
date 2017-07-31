@@ -1,0 +1,11 @@
+{
+  "name": "react_education",
+  "version": "1.0.0",
+  "description": "react ru tutorial",
+  "main": "index.html",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Volodin Sergey",
+  "license": "MIT"
+}
