@@ -9,6 +9,7 @@
   "author": "Volodin Sergey",
   "license": "MIT",
   "devDependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "color": "^2.0.0"
   }
 }
