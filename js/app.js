@@ -45,7 +45,6 @@ const Article = React.createClass({
 		const bigText = this.props.data.bigText;
 		const visible = this.state.visible;
 
-
 		return (
 			<div className="article">
 				<p className="news__author">{author}</p>
@@ -60,6 +59,8 @@ const Article = React.createClass({
 		)
 	}
 });
+
+
 
 const News = React.createClass({
 	propTypes: {
@@ -86,7 +87,33 @@ const News = React.createClass({
 			<div className="news">
 				{newsTemplate}
 
-				<strong className={'news__count ' + (data.length > 0 ? '':'none') }>Всего новостей: {data.length}</strong>
+				<strong className={'news__count ' + (data.length > 0 ? '':'none')}>
+					Всего новостей: {data.length}
+				</strong>
+			</div>
+		);
+	}
+});
+
+const TestInput = React.createClass({
+	onClick(e) {
+		e.preventDefault();
+		console.log(this.refs);
+		alert(ReactDOM.findDOMNode(this.refs.myTestInput).value);
+	},
+
+	render() {
+		return (
+			<div>
+				<input
+					className="test-input"
+					defaultValue=""
+					placeholder="Ввведите значение"
+					ref="myTestInput"
+				/>
+				<button onClick={this.onClick} ref="alert_button">
+					Go
+				</button>
 			</div>
 		);
 	}
@@ -97,6 +124,7 @@ const App = React.createClass({
 		return (
 			<div className="app">
 				<h3>Новости</h3>
+				<TestInput/>
 				<News data={myNews}/>
 			</div>
 		);
