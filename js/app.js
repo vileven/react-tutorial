@@ -98,26 +98,87 @@ News.propTypes = {
 	data: React.PropTypes.array.isRequired
 };
 
-class TestInput extends React.Component {
-	onClick(e) {
+class Add extends React.Component {
+
+	constructor() {
+		super();
+
+		this.state = {
+			agreeNotChecked: true,
+			authorIsEmpty: true,
+			textIsEmpty: true,
+		}
+	}
+
+	onBtnClick(e) {
 		e.preventDefault();
-		console.log(this.refs);
-		alert(this.btn.value);
+		alert(`${this.author.value}\n${this.text.value}`);
+	}
+
+	onCheckRuleClick(e) {
+		this.setState({agreeNotChecked: !this.state.agreeNotChecked});
+	}
+
+	onAuthorChange(e) {
+		if (e.target.value.trim().length > 0) {
+			this.setState({authorIsEmpty: false});
+		} else {
+			this.setState({authorIsEmpty: true});
+		}
+	}
+
+	onTextChange(e) {
+		if (e.target.value.trim().length > 0) {
+			this.setState({textIsEmpty: false});
+		} else {
+			this.setState({textIsEmpty: true});
+		}
+	}
+
+	componentDidMount() {
+		this.author.focus();
 	}
 
 	render() {
+		const   agreeNotChecked =   this.state.agreeNotChecked,
+				authorIsEmpty   =   this.state.authorIsEmpty,
+				textIsEmpty     =   this.state.textIsEmpty
+		;
+
 		return (
-			<div>
+			<form className="add cf">
 				<input
-					className="test-input"
+					type="text"
+					className="add__author"
 					defaultValue=""
-					placeholder="Ввведите значение"
-					ref={(btn) => {this.btn = btn}}
+					onChange={this.onAuthorChange.bind(this)}
+					placeholder="Ваше имя"
+					ref={author => this.author = author}
 				/>
-				<button onClick={this.onClick.bind(this)}>
-					Go
+				<textarea
+					className="add__text"
+					defaultValue=""
+					onChange={this.onTextChange.bind(this)}
+					placeholder="Текст новости"
+					ref={text => this.text = text}
+				/>
+				<label className="add__checkrule">
+					<input
+						type="checkbox"
+						defaultChecked={false}
+						onChange={this.onCheckRuleClick.bind(this)}
+						ref={checkrule => this.checkrule = checkrule}
+					/>Я согласен с правилами
+				</label>
+				<button
+					className="add__btn"
+					onClick={this.onBtnClick.bind(this)}
+					ref={alertBtn => this.alertBtn = alertBtn}
+					disabled={agreeNotChecked || authorIsEmpty || textIsEmpty}
+				>
+					Показать alert
 				</button>
-			</div>
+			</form>
 		);
 	}
 };
@@ -127,7 +188,7 @@ class App extends React.Component {
 		return (
 			<div className="app">
 				<h3>Новости</h3>
-				<TestInput/>
+				<Add/>
 				<News data={myNews}/>
 			</div>
 		);
