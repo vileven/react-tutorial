@@ -184,12 +184,20 @@ class Add extends React.Component {
 };
 
 class App extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			news: myNews,
+		}
+	}
+
 	render() {
 		return (
 			<div className="app">
 				<h3>Новости</h3>
 				<Add/>
-				<News data={myNews}/>
+				<News data={this.state.news}/>
 			</div>
 		);
 	}
