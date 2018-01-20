@@ -20,24 +20,19 @@ const myNews = [
 	}
 ];
 
-const Article = React.createClass({
-	propTypes: {
-		data: React.PropTypes.shape({
-			author: React.PropTypes.string.isRequired,
-			text: React.PropTypes.string.isRequired,
-			bigText: React.PropTypes.string.isRequired
-		})
-	},
-	getInitialState() {
-		return {
+class Article extends React.Component {
+
+	constructor() {
+		super();
+		this.state = {
 			visible: false
 		};
-	},
+	}
 
 	readmoreClick(e) {
 		e.preventDefault();
 		this.setState({visible: true});
-	},
+	}
 
 	render() {
 		const author = this.props.data.author;
@@ -50,7 +45,7 @@ const Article = React.createClass({
 				<p className="news__author">{author}</p>
 				<p className="news__text">{text}</p>
 				<a href="#"
-				   onClick={this.readmoreClick}
+				   onClick={this.readmoreClick.bind(this)}
 				   className={'news__readmore ' + (visible ? 'none': '')}>
 					Подробнее
 				</a>
@@ -58,15 +53,19 @@ const Article = React.createClass({
 			</div>
 		)
 	}
-});
+}
+
+Article.propTypes = {
+	data: React.PropTypes.shape({
+		author: React.PropTypes.string.isRequired,
+		text: React.PropTypes.string.isRequired,
+		bigText: React.PropTypes.string.isRequired
+	})
+};
 
 
 
-const News = React.createClass({
-	propTypes: {
-		data: React.PropTypes.array.isRequired
-	},
-
+class News extends React.Component {
 	render() {
 		const data = this.props.data;
 		let newsTemplate;
@@ -93,14 +92,18 @@ const News = React.createClass({
 			</div>
 		);
 	}
-});
+}
 
-const TestInput = React.createClass({
+News.propTypes = {
+	data: React.PropTypes.array.isRequired
+};
+
+class TestInput extends React.Component {
 	onClick(e) {
 		e.preventDefault();
 		console.log(this.refs);
 		alert(this.btn.value);
-	},
+	}
 
 	render() {
 		return (
@@ -111,16 +114,16 @@ const TestInput = React.createClass({
 					placeholder="Ввведите значение"
 					ref={(btn) => {this.btn = btn}}
 				/>
-				<button onClick={this.onClick}>
+				<button onClick={this.onClick.bind(this)}>
 					Go
 				</button>
 			</div>
 		);
 	}
-});
+};
 
-const App = React.createClass({
-	render: () => {
+class App extends React.Component {
+	render() {
 		return (
 			<div className="app">
 				<h3>Новости</h3>
@@ -129,7 +132,7 @@ const App = React.createClass({
 			</div>
 		);
 	}
-});
+};
 
 ReactDOM.render(
 	<App/>,
