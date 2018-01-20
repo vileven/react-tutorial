@@ -99,7 +99,7 @@ const TestInput = React.createClass({
 	onClick(e) {
 		e.preventDefault();
 		console.log(this.refs);
-		alert(ReactDOM.findDOMNode(this.refs.myTestInput).value);
+		alert(this.btn.value);
 	},
 
 	render() {
@@ -109,9 +109,9 @@ const TestInput = React.createClass({
 					className="test-input"
 					defaultValue=""
 					placeholder="Ввведите значение"
-					ref="myTestInput"
+					ref={(btn) => {this.btn = btn}}
 				/>
-				<button onClick={this.onClick} ref="alert_button">
+				<button onClick={this.onClick}>
 					Go
 				</button>
 			</div>
